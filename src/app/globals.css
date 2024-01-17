@@ -25,3 +25,34 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+.group {
+  transition: transform 0.5s ease-in-out;
+
+}
+.group:hover {
+  transform: scale(1.2);
+  
+}
+.group {
+  position: relative;
+}
+
+.group::before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px; /* Adjust the height as needed */
+  background-color: #FFBF00; /* Adjust the color as needed */
+  
+  bottom: -10px;
+  left: 50%; /* Center the line horizontally */
+  transform: translateX(-50%); /* Adjust to center the line properly */
+  transition: width 0.5s ease-in-out; /* Apply transition to the width property */
+}
+
+.group:hover::before {
+  width: 70%;
+}
+.button:hover{
+  color:#FFBF00
+}

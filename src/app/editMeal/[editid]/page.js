@@ -1,5 +1,4 @@
 
-
 //this page is for editing data
 
 "use client"
@@ -12,49 +11,79 @@ import { Controller, useForm } from "react-hook-form";
 import { Watch } from "react-loader-spinner";
 import Swal from "sweetalert2";
 import { getMeal } from "@/utils/getMeal";
+import useSWR, { mutate } from "swr";
 
-
-const CreateMeal = () => {
+const EditMeal = ({params}) => {
+    console.log(params.editid)
+    const [data, setData] = useState(null);
     const router=useRouter()
 
+    //for getting individual meals
+    useEffect(()=>{
+        const fetchDataAsync = async () => {
+            const result = await getMeal(params.editid);
+            setData(result);
+          };
+      
+          fetchDataAsync();
+    
+
+    },[params.editid])
 
     const { register, handleSubmit, reset, formState: { errors },setError,control } = useForm();
 
+    if (!data){
+        return (
+            <div className='flex justify-center items-center min-h-screen place-content-center mx-auto place-items-center '><Watch
+            height="80"
+            width="80"
+            radius="48"
+            color="#4fa94d"
+            ariaLabel="watch-loading"
+            wrapperStyle={{}}
+            wrapperClassName=""
+            visible={true}
+          /></div>)
+        
+    }
+
     const onSubmit=async (datas)=>{
-        // const ingredients=datas.ingredients.split(',')
+        const ingredients=datas.ingredients.split(',')
         const recipe={name:datas.title, image:datas.image,ingredients:ingredients,instruction:datas.instruction}
-        console.log(recipe)
 
-        //posting recipe
+        //updating data
 
-        // fetch(`http://localhost:4000/allRecipes`, {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify(recipe),
-        // })
-        //     .then(res => res.json()) 
-        //     .then(data => {
-        //         if (data.insertedId > 0) {
+        fetch(`http://localhost:4000/allRecipes?recipeId=${data[0]._id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(recipe),
+        })
+            .then(res => res.json()) 
+            .then(data => {
+                if (data.modifiedCount > 0) {
 
-        //             // sweet alert after updating
-        //             Swal.fire({
-        //                 position: "top-end",
-        //                 icon: "success",
-        //                 title: `Recipe Created`,
-        //                 showConfirmButton: false,
-        //                 timer: 1500
-        //             });
-        //             location.reload() 
-        //         }
-        //     })
-        //     .catch(error => console.log(error));
+                    // sweet alert after updating
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: `Updated`,
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    location.reload() //for reloading the page
+                }
+            })
+            .catch(error => console.log(error));
+        
+
+       
 
     }
     return (
         <div className="max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg mx-auto  px-4">
-            <h2 className="text-center text-4xl my-6 font-bold">Create Recipe</h2>
+            <h2 className="text-center text-4xl my-6 font-bold">Edit Recipe</h2>
 
             <div className="flex mx-auto  items-center justify-center">
     
@@ -69,7 +98,8 @@ const CreateMeal = () => {
                                     type="text"
                                     {...register("title", { required: true })}
                                     name="title"
-                                    placeholder="Enter title.."
+                                    placeholder="Edit title.."
+                                    defaultValue={data[0].name}
                                     InputProps={{
                                         style: {
                                         color: 'black',
@@ -89,7 +119,7 @@ const CreateMeal = () => {
                                     id="outlined-search2"
                                     label="Image"
                                     type="text"
-                                    placeholder="Enter image link.."
+                                    placeholder="Edit your image.."
 
                                     {...register("image")}     
                                     name="image"
@@ -100,6 +130,7 @@ const CreateMeal = () => {
                                         }
                                     
                                     }}
+                                    defaultValue={data[0].image}
                                     style={{ fontFamily: 'serif', width: '100%' }}
                                     variant="standard"
                                     />
@@ -113,7 +144,8 @@ const CreateMeal = () => {
                                     id="outlined-search2"
                                     label="Instruction"
                                     type="text"
-                                    placeholder="Enter Instruction.."
+                                    placeholder="Edit Instruction.."
+                                    defaultValue={data[0].instruction}
                                     multiline 
                                     maxRows={50}
                                 
@@ -139,11 +171,12 @@ const CreateMeal = () => {
                                 label="Ingredients"
                                 multiline
                                 type="text"
-                                placeholder=" Ingredients.."
+                                placeholder="Edit Ingredients.."
                                                         
                                 {...register("ingredients", { required: true })}
                                 name="ingredients"
                                 maxRows={50}
+                                defaultValue={data[0].ingredients}
                                 variant="standard"
                                 style={{ width: '100%' }}
                                 />
@@ -153,7 +186,7 @@ const CreateMeal = () => {
                 
                     {/* form submit button */}
                     <div className="form-control mt-2">
-                            <input  className="btn bg-[#FFBF00] font-Sora font-semibold" type="submit" value="Create recipe" />
+                            <input  className="btn bg-[#FFBF00] font-Sora font-semibold" type="submit" value="Update recipe" />
                     </div>
                 
                     </form>
@@ -163,4 +196,4 @@ const CreateMeal = () => {
     );
 };
 
-export default CreateMeal;
+export default EditMeal;

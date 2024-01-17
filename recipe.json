@@ -1,0 +1,74 @@
+[
+      {
+        "name": "Chocolate Chip Cookies",
+        "instruction": "Preheat the oven to 350°F. In a large bowl, cream together butter, sugar, and brown sugar. Beat in eggs and vanilla. In a separate bowl, combine flour, baking powder, and salt. Gradually add the dry ingredients to the wet ingredients, mixing well. Fold in chocolate chips. Drop rounded tablespoons of dough onto a baking sheet and bake for 10-12 minutes.",
+        "image": "chocolate_chip_cookies.jpg",
+        "ingredients": [
+          "Flour",
+          "Sugar",
+          "Butter",
+          "Baking powder",
+          "Salt",
+          "Chocolate chips",
+          "Vanilla extract"
+        ]
+      },
+      {
+        "name": "Chicken Curry",
+        "instruction": "In a pan, heat oil and sauté onions until golden brown. Add ginger, garlic, and tomatoes. Cook until tomatoes are soft. Add chicken pieces and cook until browned. Mix in yogurt, turmeric powder, chili powder, and garam masala. Cook until the chicken is tender. Garnish with cilantro and serve with rice.",
+        "image": "chicken_curry.jpg",
+        "ingredients": [
+          "Chicken",
+          "Garlic",
+          "Ginger",
+          "Onions",
+          "Tomatoes",
+          "Yogurt",
+          "Turmeric powder",
+          "Chili powder",
+          "Mint leaves",
+          "Cilantro"
+        ]
+      },
+      {
+        "name": "Mango Lassi",
+        "instruction": "Blend together mangoes, yogurt, sugar, and ice cubes until smooth. Pour into glasses and garnish with a sprinkle of ground cardamom. Serve chilled.",
+        "image": "mango_lassi.jpg",
+        "ingredients": [
+          "Mangoes",
+          "Yogurt",
+          "Sugar",
+          "Chickpeas",
+          "Coconut milk"
+        ]
+      },
+      {
+        "name": "Vegetable Pasta",
+        "instruction": "Cook pasta according to package instructions. In a pan, sauté garlic and onions in olive oil until golden brown. Add tomatoes and cook until they soften. Mix in cooked pasta, butter, salt, and black pepper. Cook until well combined. Garnish with grated cheese and serve.",
+        "ingredients": [
+          "Pasta",
+          "Garlic",
+          "Onions",
+          "Tomatoes",
+          "Butter",
+          "Salt",
+          "Olive oil",
+          "Black pepper",
+          "Cheese"
+        ]
+      },
+      {
+        "name": "Banana Smoothie",
+        "instruction": "Blend together bananas, yogurt, milk, honey, and vanilla extract until smooth. Pour into glasses and serve chilled.",
+        "ingredients": [
+          "Bananas",
+          "Yogurt",
+          "Milk",
+          "Honey",
+          "Vanilla extract"
+        ]
+      }
+    
+    ]
+
+  

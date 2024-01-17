@@ -3,8 +3,8 @@ import Loader from "@/components/ui/Loader";
 
 const loading = () => {
     return (
-        <div className="">
-            {/* <h1>loading....</h1> */}
+        <div>
+        
             <Loader></Loader>
             
         </div>

@@ -1,3 +1,4 @@
+//navbar  
 
 "use client"
 
@@ -10,11 +11,8 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import { styled, alpha } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
@@ -65,7 +63,7 @@ const Search = styled('div')(({ theme }) => ({
     width: '100%',
     '& .MuiInputBase-input': {
       padding: theme.spacing(1, 1, 1, 0),
-      // vertical padding + font size from searchIcon
+    
       paddingLeft: `calc(1em + ${theme.spacing(4)})`,
       transition: theme.transitions.create('width'),
       [theme.breakpoints.up('sm')]: {
@@ -78,22 +76,16 @@ const Search = styled('div')(({ theme }) => ({
   }));
 const Navbar = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
-    // const [anchorElUser, setAnchorElUser] = React.useState(null);
+
   
     const handleOpenNavMenu = (event) => {
       setAnchorElNav(event.currentTarget);
     };
-    // const handleOpenUserMenu = (event) => {
-    //   setAnchorElUser(event.currentTarget);
-    // };
-  
+
     const handleCloseNavMenu = () => {
       setAnchorElNav(null);
     };
-  
-    // const handleCloseUserMenu = () => {
-    //   setAnchorElUser(null);
-    // };
+
   
     return (
         <>
@@ -151,7 +143,7 @@ const Navbar = () => {
              
             >
               {pages.map((page) => (
-<Link href={page.pathname}>                <MenuItem key={page.route} onClick={handleCloseNavMenu}>
+               <Link href={page.pathname}><MenuItem key={page.route} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">{page.route}</Typography>
                 </MenuItem></Link>
               ))}
