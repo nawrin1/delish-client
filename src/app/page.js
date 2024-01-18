@@ -4,29 +4,34 @@ import recipe from "../../recipe.json"
 import {getRecipe} from '@/utils/getRecipe'
 import { MdOutlineRamenDining } from "react-icons/md";
 import Link from 'next/link';
+import { getSearchedMeal } from '@/utils/getSearchedMeal';
 
 
-const Home=async()=> {
-  const data=await getRecipe();
+const Home=async(searchValue)=> {
+  console.log(searchValue)
+  let data
+  if (searchValue.length>0){
+      data= await getSearchedMeal(searchValue)
+      console.log(data)
+  }
+  else{
+    data=await getRecipe();
+    // console.log(data)
+
+  }
   console.log(data)
-  // const res = await fetch(
-  //   'https://jsonplaceholder.typicode.com/posts'
 
-  // );
- 
- 
-  // console.log(res.json())
-  // console.log(ingredients)
   
   return (
     <main className="flex min-h-screen flex-col items-center justify-between ">
       
       <Banner></Banner>
+      
       <h1 className="text-4xl font-bold text-center text-[#FFBF00] my-4">Recipes  {data.length}</h1>
       <div className='grid grid-cols-1 lg:grid-cols-3 gap-4  my-10'>
 
         {
-          data.map(item=><div key={item}
+          data.length>0?data.map((item,idx)=><div key={idx}
             className='h-[300px] w-[300px]   bg-yellow-100  rounded-2xl p-4 shadow-2xl shadow-slate-200 '>
              
               <div className='flex place-content-end'>
@@ -41,7 +46,7 @@ const Home=async()=> {
             
               
           
-          </div>)
+          </div>):"no recipe"
         }
       </div>
     </main>

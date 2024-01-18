@@ -5,6 +5,7 @@ import Edit from "@/components/ui/Edit";
 import { getMeal } from "@/utils/getMeal";
 import Image from "next/image";
 import Link from "next/link";
+import image4 from "@/assets/image4.jpg"
 
 
 const MealDetail= async({params}) => {
@@ -18,7 +19,9 @@ const MealDetail= async({params}) => {
           
             <div className="relative max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg  px-4 flex justify-between mx-auto py-10">
                 <div>
-                <Image src={data[0].image} width={600} alt="mealimage" height={500}/>
+                {
+                    data[0].image?<Image src={data[0].image} width={600} alt="mealimage" height={500}/>:<Image src={image4} width={600} alt="mealimage" height={500}/>
+                }
                 </div>
                 <div className="bg-white  w-[400px] md:h-[50px] lg:h-[120px] absolute md:left-[40%] lg:left-[50%] top-[20%] flex items-center justify-center lg:justify-start md:justify-start px-4 mx-auto">
                     <h2 className="font-extrabold text-xl lg:text-2xl md:text-2xl ">{data[0].name}</h2>

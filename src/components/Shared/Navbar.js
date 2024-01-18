@@ -17,6 +17,7 @@ import { styled, alpha } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
 import Link from 'next/link';
+import Home from '@/app/page';
 
 //routes and pathname
 const pages =  [ {
@@ -76,6 +77,17 @@ const Search = styled('div')(({ theme }) => ({
   }));
 const Navbar = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
+    const [searchValue, setSearchValue] = React.useState('');
+
+  const handleSearchChange = (event) => {
+    setSearchValue(event.target.value);
+    console.log(searchValue)
+
+  };
+  React.useEffect(()=>{
+      Home(searchValue)
+
+  },[searchValue])
 
   
     const handleOpenNavMenu = (event) => {
@@ -190,6 +202,8 @@ const Navbar = () => {
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
+              value={searchValue}
+              onChange={handleSearchChange}
             />
           </Search>
 

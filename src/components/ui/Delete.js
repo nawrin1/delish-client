@@ -36,16 +36,9 @@ const Delete = ({id}) => {
                         showConfirmButton: false,
                         timer: 1500
                       });
-                      // mutate('allRecipes');
 
-                      // Navigate back to the home page
                       router.push('/');
-                     
-                      // if (router){
-                      //   router.push('/')
-                      //   location.reload();
-                      // }
-                      // // router.refresh()
+
                       
 
                   

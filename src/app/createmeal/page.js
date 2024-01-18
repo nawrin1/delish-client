@@ -9,47 +9,56 @@ import { TextField } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { Watch } from "react-loader-spinner";
+import ingredient from '../../../ingredients.json'
+import Select from 'react-select';
+// import { Select} from 'antd';
 import Swal from "sweetalert2";
-import { getMeal } from "@/utils/getMeal";
 
 
 const CreateMeal = () => {
-    const router=useRouter()
+    const router=useRouter() 
+    const [selectedValues, setSelectedValues] = useState([]);
 
-
-    const { register, handleSubmit, reset, formState: { errors },setError,control } = useForm();
+    const { register, handleSubmit, reset, formState: { errors },setError,control,setValue } = useForm();
+    const handleSelectChange = (selectedOptions) => {
+  
+        setSelectedValues(selectedOptions);
+        
+        setValue('ingredients', selectedOptions, { shouldValidate: true });
+      };
 
     const onSubmit=async (datas)=>{
-        // const ingredients=datas.ingredients.split(',')
+        const ingredients=selectedValues.map(meal=>meal.label)
+        console.log(ingredient)
         const recipe={name:datas.title, image:datas.image,ingredients:ingredients,instruction:datas.instruction}
         console.log(recipe)
 
         //posting recipe
 
-        // fetch(`http://localhost:4000/allRecipes`, {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify(recipe),
-        // })
-        //     .then(res => res.json()) 
-        //     .then(data => {
-        //         if (data.insertedId > 0) {
+        fetch(`http://localhost:4000/allRecipes`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(recipe),
+        })
+            .then(res => res.json()) 
+            .then(data => {
+                console.log(data)
+                if (data.insertedId.length > 0) {
 
-        //             // sweet alert after updating
-        //             Swal.fire({
-        //                 position: "top-end",
-        //                 icon: "success",
-        //                 title: `Recipe Created`,
-        //                 showConfirmButton: false,
-        //                 timer: 1500
-        //             });
-        //             location.reload() 
-        //         }
-        //     })
-        //     .catch(error => console.log(error));
+                    // sweet alert after creating recipe
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: `Recipe Created`,
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                   
+                }
+            })
+            .catch(error => console.log(error));
 
     }
     return (
@@ -80,6 +89,7 @@ const CreateMeal = () => {
                                     style={{ fontFamily: 'serif', width: '100%' }}
                                     variant="standard"  
                                     />
+                                    {errors.title && <span className="text-red-600 text-[10px]">Title is required</span>}
                                     </div>
                         </div>
                         <div className="form-control  ">
@@ -110,15 +120,15 @@ const CreateMeal = () => {
                                 <div>
                                     {/* input field for instruction */}
                                     <TextField
-                                    id="outlined-search2"
+                                    id="outlined-search3"
                                     label="Instruction"
                                     type="text"
                                     placeholder="Enter Instruction.."
                                     multiline 
                                     maxRows={50}
                                 
-                                    {...register("instruction", { required: true })}
-                                    name="Instruction"
+                                    {...register("instruction",{ required: true })}
+                                    name="instruction"
                                     InputProps={{
                                         style: {
                                         color: 'black',
@@ -128,27 +138,50 @@ const CreateMeal = () => {
                                     style={{ fontFamily: 'serif', width: '100%' }}
                                     variant="standard"
                                     />
+                                    {errors.instruction && <span className="text-red-600 text-[10px]">Instruction is required</span>}
                                     </div>
                         </div>
                         <div className="  mt-2">
 
                                 <div className="mt-3">
                                 {/* input field for ingredients */}
-                                <TextField
-                                id="standard-multiline-static"
-                                label="Ingredients"
-                                multiline
-                                type="text"
-                                placeholder=" Ingredients.."
-                                                        
-                                {...register("ingredients", { required: true })}
-                                name="ingredients"
-                                maxRows={50}
-                                variant="standard"
-                                style={{ width: '100%' }}
-                                />
+
+                                      
+                               <Controller
+                                control={control} 
+                                name="ingredients" 
                             
-                                </div>
+                                rules={{ required: "Please select atleast one ingredient" }} 
+                                render={({ field }) => (
+                               
+                                <Select
+                                    {...field} 
+                                    isMulti 
+                                    options={ingredient} 
+                                    getOptionValue={(ingredient) =>ingredient.label}
+                                    getOptionLabel={(ingredient) =>ingredient.label}
+                                    
+                                    onChange={handleSelectChange}
+                                />
+                                )}
+                            />
+                             {errors.ingredients && <span className="text-red-600 text-[10px]">{errors.ingredients.message}</span>}
+
+
+                                {/* <Select
+                                  
+                                    isMulti
+                                    name="recipe"
+                                    options={ingredient}
+
+                                    getOptionValue={(ingredient) =>ingredient.label}
+                                    getOptionLabel={(ingredient) =>ingredient.label}
+                                    className="basic-multi-select"
+                                    classNamePrefix="select"
+                                     onChange={handleSelectChange}
+                                /> */}
+                                       
+                             </div>
                         </div>
                 
                     {/* form submit button */}

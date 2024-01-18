@@ -8,6 +8,6 @@ export const getMeal= async (params) => {
       }
       
     );
-    // console.log(res.data)
+
     return res.json();
   };
