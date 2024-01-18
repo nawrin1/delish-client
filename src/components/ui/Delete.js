@@ -13,7 +13,7 @@ const Delete = ({id}) => {
         const router=useRouter()
         const { data: recipes } = useSWR('allRecipes', getRecipe())
         const handleDelete = (id) => {
-            fetch(`http://localhost:4000/allRecipes/${id}`, {
+            fetch(`https://delish-server-tau.vercel.app/allRecipes/${id}`, {
               method: 'DELETE',
               headers: {
                 'Content-Type': 'application/json', 

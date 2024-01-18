@@ -2,7 +2,7 @@
 
   export const getRecipe = async () => {
     const res = await fetch(
-      "http://localhost:4000/allRecipes",{
+      "https://delish-server-tau.vercel.app/allRecipes",{
         cache:'no-store'
       }
       

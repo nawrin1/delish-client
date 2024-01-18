@@ -53,7 +53,7 @@ const EditMeal = ({params}) => {
 
         //updating data
 
-        fetch(`http://localhost:4000/allRecipes?recipeId=${data[0]._id}`, {
+        fetch(`https://delish-server-tau.vercel.app/allRecipes?recipeId=${data[0]._id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',

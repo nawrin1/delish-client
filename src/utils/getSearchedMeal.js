@@ -3,7 +3,7 @@
 export const getSearchedMeal = async (value) => {
     console.log(value)
     const res = await fetch(
-      `http://localhost:4000/allRecipe?value=${value}`,{
+      `https://delish-server-tau.vercel.app/allRecipe?value=${value}`,{
         cache:"no-store"
       }
       

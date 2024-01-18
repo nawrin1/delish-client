@@ -35,7 +35,7 @@ const CreateMeal = () => {
 
         //posting recipe
 
-        fetch(`http://localhost:4000/allRecipes`, {
+        fetch(`https://delish-server-tau.vercel.app/allRecipes`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
